@@ -5,8 +5,9 @@ createGrid(container,4);
 const button = document.querySelector("button");
 button.addEventListener("click", () => {
     let size = prompt("Enter the number of squares per side for the new grid:");
-    if (!(size > 0) && !(size < 101)) {
+    if (size < 1 || size > 100) {
         alert("Invalid size! The grid size must be between 1 to 100");
+        return;
     }
     container.remove();
     container = document.createElement("div");
@@ -14,6 +15,25 @@ button.addEventListener("click", () => {
     body.appendChild(container);
     createGrid(container, size);
 });
+
+function createGrid(container, size) {
+    for (let i = 0; i < size; i++) {
+        let row = document.createElement("div");
+        row.classList.add("row");
+        for (let j = 0; j < size; j++) {
+            let square = document.createElement("div");
+            square.classList.add("square");
+            square.style.opacity = 1.1;
+            square.style.height = `calc(80vh / ${size})`
+            square.addEventListener("mouseover", () => {
+                square.style.opacity = parseFloat(square.style.opacity) - 0.1;
+                square.style.backgroundColor = getRandomColor();
+            })
+            row.appendChild(square);
+        }
+        container.appendChild(row);
+    }
+}
 
 function getRandomColor() {
     const letters = "0123456789ABCDEF";
@@ -24,19 +44,9 @@ function getRandomColor() {
     return color;
 }
 
-function createGrid(container, size) {
-    for (let i = 0; i < size; i++) {
-        let row = document.createElement("div");
-        row.classList.add("row");
-        for (let j = 0; j < size; j++) {
-            let square = document.createElement("div");
-            square.classList.add("square");
-            square.style.height = `calc(80vh / ${size})`
-            square.addEventListener("mouseover", () => {
-                square.style.backgroundColor = getRandomColor();
-            })
-            row.appendChild(square);
-        }
-        container.appendChild(row);
-    }
+function getRandomColor() {
+    const red = Math.floor(Math.random()*256);
+    const green = Math.floor(Math.random()*256);
+    const blue = Math.floor(Math.random()*256);
+    return `rgba(${red}, ${green}, ${blue})`
 }

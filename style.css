@@ -1,13 +1,25 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 #container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .row {
     display: flex;
+    width: 80%;
 }
 
 .square {
-    height: 100px;
-    width: 100px;
+    flex: 1 1 auto;
     border: solid 2px black;
     margin: -1px;
+}
+
+button {
+    margin-bottom: 10px;
 }
